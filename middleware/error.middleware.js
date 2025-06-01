@@ -5,7 +5,7 @@ const errorMiddleware = (err, req, res,next)=>{
       error.message = err.message;
       console.log(err.message);
 
-      res.json(error.statusCode||500).json({
+      res.status(error.statusCode||500).json({
          sucess:false,
          errorMessage:error.message
       });
