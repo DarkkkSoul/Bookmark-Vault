@@ -42,3 +42,17 @@ export const viewBookmark = async (req, res, next) =>{
       next(error);
    }
 }
+
+// export const deleteBookmark = async (eq, res, next) =>{
+//    try {
+      
+//       const user = ;
+
+
+//       res.status(200).json({
+
+//       })
+//    } catch (error) {
+//       next(error);
+//    }
+// }
