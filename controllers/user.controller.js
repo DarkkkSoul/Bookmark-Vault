@@ -21,6 +21,9 @@ export const getUser = async (req, res, next) =>{
       
       const user = await User.findById(req.params.id);
 
+      // to get current logged in user
+      // const user = req.user;
+
       if(!user){
          const error = new Error ('User not Found');
          error.statusCode = 404;

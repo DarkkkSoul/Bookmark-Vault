@@ -8,4 +8,7 @@ userRouter.get('/',getUsers);
 
 userRouter.get('/:id',authorizeMiddleware,getUser);
 
+// get current logged in user
+// userRouter.get('/me',authorizeMiddleware,getUser);
+
 export default userRouter;
