@@ -11,11 +11,11 @@ const bookmarkSchema = new mongoose.Schema({
    },
    category: {
       type:String,
-      enum:['sports','entertainment','news','cooking', 'crafts'],
+      enum:['sports','entertainment','news','cooking', 'crafts','all','education'],
       required:true,
       default:'entertainment',
    },
-   user:{
+   owner:{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required:true,

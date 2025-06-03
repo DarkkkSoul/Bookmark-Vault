@@ -1,12 +1,14 @@
 import { Router } from "express";
+import authorizeMiddleware from "../middleware/auth.middleware.js";
+import { createBookmark, viewBookmark } from "../controllers/bookmark.controller.js";
 
 const bookmarkRouter = Router();
 
 // create
-bookmarkRouter.post('/', (req, res)=>res.send("Create bookmark route"));
+bookmarkRouter.post('/', authorizeMiddleware, createBookmark );
 
 // show by id
-bookmarkRouter.get('user/:id', (req, res)=>res.send("Show bookmark route by user id"));
+bookmarkRouter.get('/user/:id', authorizeMiddleware, viewBookmark);
 
 // update by id
 bookmarkRouter.put('user/:id', (req, res)=>res.send("Update bookmark route by user id"));
