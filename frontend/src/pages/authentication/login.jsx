@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
 
 function Login() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const navigate = useNavigate();
 
     useEffect(()=>{
         if(message){
@@ -26,18 +28,20 @@ function Login() {
                 headers: {
                     "Content-Type": "application/json",
                 },
+                credentials: 'include',
             });
 
             const data = await response.json();
 
             if(response.ok){
                 setMessage(data.message);
+                navigate('/');
             } else{
                 setMessage(data.errorMessage);
             }
 
         } catch (error) {
-            console.error("Error during signUp: ", error);
+            console.error("Error during login: ", error);
             setMessage("Network Error, try again later.");
         }
     }
