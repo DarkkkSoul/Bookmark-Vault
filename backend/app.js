@@ -17,9 +17,12 @@ const port = process.env.PORT || 5500;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 app.use(cors({
    origin:process.env.URL_ORIGIN,
    credentials:true, 
+   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 app.use('/api/v1/auth', authRouter);

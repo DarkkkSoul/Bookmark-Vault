@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 import { User } from "../models/user.model.js";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -17,9 +17,10 @@ export const signupController = async (req,res, next) =>{
 
       const user = await User.findOne({email});
       if(user){
-         const error = new Error('User already existed');
-         error.statusCode = 409;
-         throw error;
+         
+         await mongooseSession.abortTransaction();
+         mongooseSession.endSession();
+         return res.status(409).json({sucess:false, errorMessage:"User already existed"});
       }
 
       // pass - hash,
@@ -30,8 +31,11 @@ export const signupController = async (req,res, next) =>{
       const newUsers = await User.create([{username, email, password:hashedPassword}],{session:mongooseSession});
 
       const token = jwt.sign({userId : newUsers[0]._id}, process.env.JWT_SECRET, {expiresIn:process.env.JWT_EXPIRY});
-
-      res.status(200).json({  
+      
+      await mongooseSession.commitTransaction();
+      mongooseSession.endSession();
+      
+      return res.status(200).json({  
          sucess:true,
          message:"User created successfully",
          data:{
@@ -39,12 +43,9 @@ export const signupController = async (req,res, next) =>{
             user: newUsers[0],
          }
       });
-
-      mongooseSession.commitTransaction();
-      mongooseSession.endSession();
-
+      
    } catch (error) {
-      mongooseSession.abortTransaction();
+      await mongooseSession.abortTransaction();
       mongooseSession.endSession();
       next(error);
    }
