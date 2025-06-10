@@ -22,7 +22,8 @@ function BookmarkCard({ title, url, category }) {
   }
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-6 hover:border-blue-300 hover:shadow-md transition-all duration-200 group">
+    <div className="bg-slate-200 border border-gray-200 rounded-lg p-6 hover:border-blue-300 hover:shadow-md transition-all duration-200 group">
+
       <div className="flex items-start justify-between mb-3">
         <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200 line-clamp-2">
           {title}
