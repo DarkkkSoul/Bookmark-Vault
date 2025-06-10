@@ -44,17 +44,17 @@ function Login() {
 
   return (
 
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-100 flex items-center justify-center px-4">
-      <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-600 to-black flex items-center justify-center px-4">
+      <div className="max-w-md w-full bg-gradient-to-br from-gray-600 via-black to-white rounded-xl shadow-2xl shadow-white p-8">
 
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900">Welcome Back</h2>
-          <p className="text-gray-600 mt-2">Sign in to your account</p>
+          <h2 className="text-3xl font-bold text-white">Welcome Back</h2>
+          <p className="text-white mt-2">Sign in to your account</p>
         </div>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="email" className="block text-sm font-medium text-white mb-2">
               Email Address
             </label>
             <input
@@ -70,7 +70,7 @@ function Login() {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="password" className="block text-sm font-medium text-white mb-2">
               Password
             </label>
             <input
@@ -87,19 +87,19 @@ function Login() {
 
           <button
             type="submit"
-            className="text-black font-semibold py-2 px-6 rounded-lg duration-200 bg-gradient-to-br from-purple-500 via-blue-200 to-pink-500 tracking-wider hover:scale-105 transition-all shadow-2xl hover:shadow-black active:scale-90"
+            className="text-black font-semibold py-2 px-6 rounded-lg duration-200 bg-white bg-opacity-70 hover:bg-gradient-to-tl from-gray-900 via-gray-500 to-white transition-all hover:text-white hover:scale-110 active:scale-95 shadow-2xl hover:shadow-white"
           >
             Sign Me In!
           </button>
         </form>
 
-        {message && <p>{message}</p>}
+        {message && <p className='text-white mt-4 text-center'>{message}</p>}
 
         <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600">
-            Don't have an account?{' '}
-            <Link to="/signup" className="text-purple-600 hover:text-purple-700 font-medium">
-              Sign up
+          <p className="text-sm text-white">
+            Don't have an {''}
+            <Link to='/signup' className='underline'>
+             account?
             </Link>
           </p>
         </div>
