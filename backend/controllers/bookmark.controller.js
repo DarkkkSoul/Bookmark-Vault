@@ -49,10 +49,12 @@ export const viewBookmark = async (req, res, next) => {
     }
 }
 
-export const deleteBookmark = async (eq, res, next) => {
+export const deleteBookmark = async (req, res, next) => {
     try {
 
-        const bookmarkId = await Bookmark.findById(req.user.id);
+        const bookmark = await Bookmark.findById(req.params.id);
+
+        await bookmark.deleteOne();
 
         res.status(200).json({
             message: 'Bookmark deleted successfully',

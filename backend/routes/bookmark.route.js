@@ -1,6 +1,6 @@
 import { Router } from "express";
 import authorizeMiddleware from "../middleware/auth.middleware.js";
-import { createBookmark, viewBookmark } from "../controllers/bookmark.controller.js";
+import { createBookmark, deleteBookmark, viewBookmark } from "../controllers/bookmark.controller.js";
 
 const bookmarkRouter = Router();
 
@@ -14,6 +14,6 @@ bookmarkRouter.get('/user', authorizeMiddleware, viewBookmark);
 bookmarkRouter.put('/user', (req, res) => res.send("Update bookmark route by user id"));
 
 // delete by id
-bookmarkRouter.delete('/user', (req, res) => res.send("Delete bookmark route by user id"));
+bookmarkRouter.delete('/:id', deleteBookmark);
 
 export default bookmarkRouter;
