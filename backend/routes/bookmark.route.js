@@ -5,15 +5,15 @@ import { createBookmark, viewBookmark } from "../controllers/bookmark.controller
 const bookmarkRouter = Router();
 
 // create
-bookmarkRouter.post('/', authorizeMiddleware, createBookmark );
+bookmarkRouter.post('/', authorizeMiddleware, createBookmark);
 
 // show by id
-bookmarkRouter.get('/user/:id', authorizeMiddleware, viewBookmark);
+bookmarkRouter.get('/user', authorizeMiddleware, viewBookmark);
 
 // update by id
-bookmarkRouter.put('user/:id', (req, res)=>res.send("Update bookmark route by user id"));
+bookmarkRouter.put('/user', (req, res) => res.send("Update bookmark route by user id"));
 
 // delete by id
-bookmarkRouter.delete('user/:id', (req, res)=>res.send("Delete bookmark route by user id"));
+bookmarkRouter.delete('/user', (req, res) => res.send("Delete bookmark route by user id"));
 
 export default bookmarkRouter;

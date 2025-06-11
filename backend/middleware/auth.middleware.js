@@ -16,7 +16,6 @@ const authorizeMiddleware = async (req, res, next) => {
         }
 
         // token is more secure in cookies, and can't be acessed by Js
-
         if (req.cookies && req.cookies.token) {
             token = req.cookies.token;
         }

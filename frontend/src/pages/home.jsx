@@ -1,47 +1,8 @@
 import { useEffect, useState } from 'react'
-import BookmarkCard from './components/bookmarkcard'
+import BookmarkCard from './components/bookmarkcard.jsx'
+import {useNavigate} from 'react-router-dom'
 
 function Home() {
-  // Demo bookmark data
-  const demoBookmarks = [
-    {
-      id: 1,
-      title: "React Documentation",
-      url: "https://react.dev",
-      category: "Development"
-    },
-    {
-      id: 2,
-      title: "Tailwind CSS",
-      url: "https://tailwindcss.com",
-      category: "Design"
-    },
-    {
-      id: 3,
-      title: "GitHub",
-      url: "https://github.com",
-      category: "Development"
-    },
-    {
-      id: 4,
-      title: "Dribbble",
-      url: "https://dribbble.com",
-      category: "Design"
-    },
-    {
-      id: 5,
-      title: "Stack Overflow",
-      url: "https://stackoverflow.com",
-      category: "Development"
-    },
-    {
-      id: 6,
-      title: "Unsplash",
-      url: "https://unsplash.com",
-      category: "Images"
-    }
-  ]
-
 
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
@@ -85,8 +46,39 @@ function Home() {
         }
     }, [message])
     
+    
+    // display bookmarks
 
-  return (
+    const [bookmarks, setBookmarks] = useState([]);
+    const [errorMsg, setErrorMsg] = useState('');
+
+    useEffect(()=>{
+        const getBookmarks = async () =>{
+            try {
+                const response = await fetch('http://localhost:5000/api/v1/bookmark/user',{
+                    method:'GET',
+                    credentials:'include'
+                });
+    
+                const data = await response.json();
+
+                if(response.ok){
+                    setBookmarks(data.data.bookmarks);
+                } else{
+                    setErrorMsg(data.errorMessage);
+                }
+
+            } catch (error) {
+                console.error(error);
+                setErrorMsg('Network Error, try again later!');
+            }
+        }
+    
+        getBookmarks();
+
+    },[bookmarks]);
+
+    return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-600 to-black pt-24 py-8">
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -171,9 +163,10 @@ function Home() {
           <h2 className="text-2xl font-bold text-white mb-6">Your Bookmarks</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {demoBookmarks.map((bookmark) => (
+            {bookmarks.map((bookmark) => (
               <BookmarkCard 
-                key={bookmark.id}
+                key={bookmark._id}
+                id={bookmark._id}
                 title={bookmark.title}
                 url={bookmark.url}
                 category={bookmark.category}
@@ -181,11 +174,11 @@ function Home() {
             ))}
           </div>
 
-          {demoBookmarks.length === 0 && (
+          {bookmarks.length === 0 && (
             <div className="text-center py-12">
               <div className="text-gray-400 text-6xl mb-4">📑</div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No bookmarks yet</h3>
-              <p className="text-gray-600">Create your first bookmark above to get started!</p>
+              <h3 className="text-lg font-medium text-white mb-2">No bookmarks yet</h3>
+              <p className="text-white">Create your first bookmark above</p>
             </div>
           )}
         </div>
