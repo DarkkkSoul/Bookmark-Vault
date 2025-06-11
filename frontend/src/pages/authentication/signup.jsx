@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Signup() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
 
@@ -27,6 +29,7 @@ function Signup() {
 
          if (response.ok) {
                setMessage(data.message||"Signup successful!");
+               navigate("/login");
 
          } else {
                setMessage(data.errorMessage || "Signup failed. Please try again.");

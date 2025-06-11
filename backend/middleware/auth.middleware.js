@@ -4,40 +4,46 @@ import { User } from '../models/user.model.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const authorizeMiddleware = async (req, res, next)=>{
-   try {
-      
-      // take token, verify token, if success then return the request.
+const authorizeMiddleware = async (req, res, next) => {
+    try {
 
-      let token;
+        // take token, verify token, if success then return the request.
 
-      if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
-         token = req.headers.authorization.split(' ')[1];
-      }
+        let token;
 
-      if(!token){
-         const error = new Error('Please login - you are unauthorized');
-         error.statusCode = 404;
-         throw error;
-      }
+        if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+            token = req.headers.authorization.split(' ')[1];
+        }
 
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      const user = await User.findById(decoded.userId);
+        // token is more secure in cookies, and can't be acessed by Js
 
-      if(!user){
-         const error = new Error('User not Found');
-         error.statusCode = 404;
-         throw error;
-      }
+        if (req.cookies && req.cookies.token) {
+            token = req.cookies.token;
+        }
 
-      req.user =  user;
+        if (!token) {
+            const error = new Error('Please login - you are unauthorized');
+            error.statusCode = 404;
+            throw error;
+        }
 
-      next();
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findById(decoded.userId);
+
+        if (!user) {
+            const error = new Error('User not Found');
+            error.statusCode = 404;
+            throw error;
+        }
+
+        req.user = user;
+
+        next();
 
 
-   } catch (error) {
-      next(error);
-   }
+    } catch (error) {
+        next(error);
+    }
 }
 
 export default authorizeMiddleware;

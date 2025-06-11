@@ -1,29 +1,29 @@
 import mongoose from "mongoose";
 
 const bookmarkSchema = new mongoose.Schema({
-   name: {
-      type:String,
-      required:true
-   },
-   url:{
-      type:String,
-      required:true,
-   },
-   category: {
-      type:String,
-      enum:['sports','entertainment','news','cooking', 'crafts','all','education'],
-      required:true,
-      default:'entertainment',
-   },
-   owner:{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required:true,
-      index:true,
-   },
+    title: {
+        type: String,
+        required: true
+    },
+    url: {
+        type: String,
+        required: true,
+    },
+    category: {
+        type: String,
+        enum: ['Development', 'Design', 'News', 'Social', 'Images', 'Other'],
+        required: true,
+        default: 'entertainment',
+    },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+        index: true,
+    },
 
-},{timestamps:true});
+}, { timestamps: true });
 
-export const Bookmark = mongoose.model('Bookmark',bookmarkSchema);
+export const Bookmark = mongoose.model('Bookmark', bookmarkSchema);
 
 // name, url, category, user, 
