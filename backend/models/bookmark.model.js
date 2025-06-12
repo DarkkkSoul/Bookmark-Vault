@@ -11,9 +11,8 @@ const bookmarkSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        enum: ['Development', 'Design', 'News', 'Social', 'Images', 'Other'],
-        required: true,
-        default: 'entertainment',
+        enum: ['Entertainment', 'Development', 'Education', 'News', 'Social', 'Images', 'Others'],
+        default: 'Entertainment',
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,

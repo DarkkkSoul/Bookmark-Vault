@@ -80,7 +80,7 @@ export const loginController = async (req, res, next) => {
         res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', // Use secure in production
-            maxAge: 3600000, // 1 hour in milliseconds
+            maxAge: 86400000, // 1 day in milliseconds
             sameSite: 'Lax', // Adjust based on your needs, 'None' + secure:true for cross-site
         });
 

@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react"
 
 function BookmarkCard({ title, url, category, id }) {
-    // Function to get category color
+
     const getCategoryColor = (category) => {
         const colors = {
+            'Entertainment': 'bg-pink-100 text-pink-800',
             'Development': 'bg-blue-100 text-blue-800',
-            'Design': 'bg-purple-100 text-purple-800',
+            'Education': 'bg-purple-100 text-purple-800',
             'News': 'bg-red-100 text-red-800',
             'Social': 'bg-green-100 text-green-800',
             'Images': 'bg-yellow-100 text-yellow-800',
-            'Other': 'bg-gray-100 text-gray-800'
+            'Others': 'bg-gray-100 text-gray-800'
         }
-        return colors[category] || colors['Other']
+        return colors[category] || colors['Other'];
     }
 
-    // Function to extract domain from URL
     const getDomain = (url) => {
         try {
             return new URL(url).hostname
