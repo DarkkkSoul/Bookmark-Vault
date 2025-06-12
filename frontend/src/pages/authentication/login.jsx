@@ -23,7 +23,7 @@ function Login() {
 
         try {
 
-            const response = await fetch('http://localhost:5000/api/v1/auth/login', {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/login`, {
                 method: "POST",
                 body: JSON.stringify({ email, password }),
                 headers: {

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import { Link, useNavigate } from "react-router-dom";
 
+
 function Signup() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -16,7 +17,7 @@ function Signup() {
 
         try {
 
-            const response = await fetch("http://localhost:5000/api/v1/auth/signup", {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/signup`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -14,7 +14,7 @@ function Home() {
 
         try {
 
-            const response = await fetch('http://localhost:5000/api/v1/bookmark', {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/bookmark`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -55,7 +55,7 @@ function Home() {
     useEffect(() => {
         const getBookmarks = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/v1/bookmark/user', {
+                const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/bookmark/user`, {
                     method: 'GET',
                     credentials: 'include'
                 });
