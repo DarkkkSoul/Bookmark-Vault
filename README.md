@@ -1,4 +1,4 @@
-# 🔖 Bookmark Vault (Backend-Only)
+# 🔖 Bookmark Vault
 
 A backend system where authenticated users can save, categorize, view, and delete personal bookmarks. Inspired by apps like Pocket or Pinterest — but backend-only.
 
