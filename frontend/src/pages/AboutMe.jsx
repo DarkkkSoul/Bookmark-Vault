@@ -4,10 +4,9 @@ import { Link } from 'react-router-dom'
 
 function AboutMe() {
     return (
-        <div className='bg-gradient-to-br from-gray-900 via-gray-600 to-black h-screen flex justify-center items-center'>
+        <div className='bg-gradient-to-br from-gray-900 via-gray-600 to-black min-h-screen flex justify-center items-center p-6'>
             <Fade>
-
-                <div className='max-w-md bg-gradient-to-br from-gray-600 via-black to-white rounded-xl shadow-2xl p-10 shadow-white flex flex-col items-center justify-center gap-y-7'>
+                <div className='max-w-md bg-gradient-to-br from-gray-600 via-black to-white rounded-xl shadow-2xl md:p-10 p-6 shadow-white flex flex-col items-center justify-center gap-y-7'>
 
                     <div className='w-44'>
                         <img src="/pfp.jpeg" className='rounded-full' />
