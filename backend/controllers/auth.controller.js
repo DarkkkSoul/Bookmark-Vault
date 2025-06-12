@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 import { User } from "../models/user.model.js";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -91,6 +91,22 @@ export const loginController = async (req, res, next) => {
                 user
             }
         })
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const logoutController = async (req, res, next) => {
+    try {
+
+        res.clearCookie('token', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', // Same settings as when setting the cookie
+            sameSite: 'Lax', // Match the sameSite setting from when you set the cookie
+        });
+
+        res.status(200).json({ message: 'Logged out successfully' });
+
     } catch (error) {
         next(error);
     }

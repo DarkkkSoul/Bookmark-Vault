@@ -20,7 +20,7 @@ function Footer() {
                     <div className="absolute bottom-5 right-7 flex justify-center items-center gap-x-2">
                         <p className="text-sm">Developed By</p>
                         <Link to={'/aboutme'}>
-                            <img src="/dark-soul.png" className="rounded-full w-10" />
+                            <img src="/icons/moon2.png" className="rounded-full w-8" />
                         </Link>
                     </div>
                 </div>
