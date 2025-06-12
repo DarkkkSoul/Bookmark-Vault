@@ -36,7 +36,4 @@ app.get('/', (req, res) => {
     res.send('Welcome to bookmark vault system');
 });
 
-app.listen(port, () => {
-    console.log(`App running on - http://localhost:${port}`);
-    connectToDB();
-});
+module.exports = app;
