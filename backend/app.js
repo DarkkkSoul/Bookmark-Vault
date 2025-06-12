@@ -25,6 +25,8 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
+app.options('*', cors());
+
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/bookmark', bookmarkRouter);
 app.use('/api/v1/user', userRouter);
