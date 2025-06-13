@@ -77,11 +77,12 @@ export const loginController = async (req, res, next) => {
         // This is crucial for security: HTTP-only cookies cannot be accessed by JavaScript in the browser.
         // 'secure: true' means the cookie will only be sent over HTTPS. Use 'false' for development with HTTP.
         // 'sameSite: "Lax"' helps mitigate CSRF attacks.
+
         res.cookie('token', token, {
             httpOnly: true,
-            secure: true, // Use secure in production
-            maxAge: 86400000, // 1 day in milliseconds
-            sameSite: 'None', // Adjust based on your needs, 'None' + secure:true for cross-site
+            secure: process.env.NODE_ENV === 'production', // true in prod, false locally
+            maxAge: 86400000,
+            sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
         });
 
         res.status(200).json({
@@ -101,9 +102,11 @@ export const logoutController = async (req, res, next) => {
 
         res.clearCookie('token', {
             httpOnly: true,
-            secure: true, // 1 day in milliseconds
-            sameSite: 'None', // Match the sameSite setting from when you set the cookie
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+            path: '/', // Very important: must match the default path
         });
+
 
         res.status(200).json({ message: 'Logged out successfully' });
 
