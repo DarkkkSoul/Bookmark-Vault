@@ -79,9 +79,9 @@ export const loginController = async (req, res, next) => {
         // 'sameSite: "Lax"' helps mitigate CSRF attacks.
         res.cookie('token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production', // Use secure in production
+            secure: true, // Use secure in production
             maxAge: 86400000, // 1 day in milliseconds
-            sameSite: 'Lax', // Adjust based on your needs, 'None' + secure:true for cross-site
+            sameSite: 'none', // Adjust based on your needs, 'None' + secure:true for cross-site
         });
 
         res.status(200).json({
@@ -101,8 +101,8 @@ export const logoutController = async (req, res, next) => {
 
         res.clearCookie('token', {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production', // Same settings as when setting the cookie
-            sameSite: 'Lax', // Match the sameSite setting from when you set the cookie
+            secure: true, // 1 day in milliseconds
+            sameSite: 'none', // Match the sameSite setting from when you set the cookie
         });
 
         res.status(200).json({ message: 'Logged out successfully' });
