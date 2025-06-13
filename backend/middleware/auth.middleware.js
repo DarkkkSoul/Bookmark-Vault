@@ -32,7 +32,6 @@ const authorizeMiddleware = async (req, res, next) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
         //
-        console.log('Token verified. req.user:', req.user);
 
         const user = await User.findById(decoded.userId);
 
@@ -43,6 +42,7 @@ const authorizeMiddleware = async (req, res, next) => {
         }
 
         req.user = user;
+        console.log('Token verified. req.user:', req.user);
 
         next();
 
