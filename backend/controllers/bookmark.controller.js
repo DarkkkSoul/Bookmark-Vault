@@ -21,6 +21,8 @@ export const createBookmark = async (req, res, next) => {
 }
 
 export const viewBookmark = async (req, res, next) => {
+    console.log('getUsersBookmarks controller hit.');
+    console.log('req.user.id:', req.user ? req.user.id : 'req.user is undefined/null');
     try {
 
         //   if(req.params.id !== req.user.id){
@@ -31,8 +33,14 @@ export const viewBookmark = async (req, res, next) => {
 
         const bookmarks = await Bookmark.find({ owner: req.user.id });
 
+        if (!bookmarks || bookmarks.length === 0) {
+            return res.status(200).json({ data: { bookmarks: [] }, message: 'No bookmarks found.' });
+        } if (!bookmarks || bookmarks.length === 0) {
+            return res.status(200).json({ data: { bookmarks: [] }, message: 'No bookmarks found.' });
+        }
+
         if (bookmarks.length < 1) {
-            const error = new Error("Add bookmarks");
+            const error = new Error("Please add bookmarks");
             error.statusCode = 400;
             throw error;
         }
@@ -45,6 +53,7 @@ export const viewBookmark = async (req, res, next) => {
         })
 
     } catch (error) {
+        console.error('Error in getUsersBookmarks:', error);
         next(error);
     }
 }

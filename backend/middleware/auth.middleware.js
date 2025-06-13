@@ -5,6 +5,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const authorizeMiddleware = async (req, res, next) => {
+
+    console.log('Authorization middleware hit.');
+    console.log('Request cookies:', req.cookies);
     try {
 
         // take token, verify token, if success then return the request.
@@ -27,6 +30,10 @@ const authorizeMiddleware = async (req, res, next) => {
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        //
+        console.log('Token verified. req.user:', req.user);
+
         const user = await User.findById(decoded.userId);
 
         if (!user) {
@@ -41,6 +48,8 @@ const authorizeMiddleware = async (req, res, next) => {
 
 
     } catch (error) {
+        //
+        console.error('Token verification failed:', err);
         next(error);
     }
 }
