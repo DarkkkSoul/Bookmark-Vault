@@ -81,7 +81,7 @@ export const loginController = async (req, res, next) => {
             httpOnly: true,
             secure: true, // Use secure in production
             maxAge: 86400000, // 1 day in milliseconds
-            sameSite: 'none', // Adjust based on your needs, 'None' + secure:true for cross-site
+            sameSite: 'None', // Adjust based on your needs, 'None' + secure:true for cross-site
         });
 
         res.status(200).json({
@@ -102,7 +102,7 @@ export const logoutController = async (req, res, next) => {
         res.clearCookie('token', {
             httpOnly: true,
             secure: true, // 1 day in milliseconds
-            sameSite: 'none', // Match the sameSite setting from when you set the cookie
+            sameSite: 'None', // Match the sameSite setting from when you set the cookie
         });
 
         res.status(200).json({ message: 'Logged out successfully' });
