@@ -14,16 +14,16 @@ dotenv.config();
 const port = process.env.PORT || 5500;
 
 // middlewares
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-
 app.use(cors({
     origin: process.env.FRONTEND_URL,
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+
 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/bookmark', bookmarkRouter);
@@ -38,5 +38,7 @@ app.get('/', (req, res) => {
 
 app.listen(port, () => {
     console.log(`App running on - http://localhost:${port}`);
+    console.log('CORS Origin:', process.env.FRONTEND_URL);
+    console.log('NODE_ENV:', process.env.NODE_ENV);
     connectToDB();
 });

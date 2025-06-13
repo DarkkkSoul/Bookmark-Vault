@@ -83,6 +83,7 @@ export const loginController = async (req, res, next) => {
             secure: process.env.NODE_ENV === 'production', // true in prod, false locally
             maxAge: 86400000,
             sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+            path: '/',
         });
 
         res.status(200).json({
