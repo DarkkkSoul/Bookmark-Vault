@@ -82,7 +82,7 @@ export const loginController = async (req, res, next) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', // true in prod, false locally
             maxAge: 86400000,
-            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'Lax',
+            sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
             path: '/',
         });
 
@@ -104,7 +104,7 @@ export const logoutController = async (req, res, next) => {
         res.clearCookie('token', {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'Lax',
+            sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
             path: '/', // Very important: must match the default path
         });
 

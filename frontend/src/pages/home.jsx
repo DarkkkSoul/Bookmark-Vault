@@ -31,7 +31,6 @@ function Home() {
         doc.save("your-bookmarks.pdf");
     }
 
-
     const triggerBookmarkFetch = useCallback(() => {
         setFetchTrigger(prev => prev + 1);
     }, []);
