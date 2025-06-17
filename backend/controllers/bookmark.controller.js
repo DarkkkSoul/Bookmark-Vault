@@ -21,8 +21,7 @@ export const createBookmark = async (req, res, next) => {
 }
 
 export const viewBookmark = async (req, res, next) => {
-    console.log('getUsersBookmarks controller hit.');
-    console.log('req.user.id:', req.user ? req.user.id : 'req.user is undefined/null');
+
     try {
 
         //   if(req.params.id !== req.user.id){
@@ -53,7 +52,6 @@ export const viewBookmark = async (req, res, next) => {
         })
 
     } catch (error) {
-        console.error('Error in getUsersBookmarks:', error);
         next(error);
     }
 }

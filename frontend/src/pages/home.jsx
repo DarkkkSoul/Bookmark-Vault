@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import BookmarkCard from './components/bookmarkcard.jsx'
 import { Fade } from 'react-awesome-reveal';
 import { useNavigate } from 'react-router-dom'
+import { jsPDF } from "jspdf";
 
 function Home() {
     // --- Create Bookmark Section State ---
@@ -15,6 +16,20 @@ function Home() {
     const [errorMsg, setErrorMsg] = useState('');
     const [fetchTrigger, setFetchTrigger] = useState(0);
     const navigate = useNavigate();
+
+    const [bookmarkUrl, setBookmarkUrl] = useState([]);
+
+    useEffect(() => {
+        setBookmarkUrl(bookmarks.map(bookmark => bookmark.url));
+    }, [bookmarks]);
+
+    const handleExtract = () => {
+
+        const doc = new jsPDF();
+
+        doc.text(bookmarkUrl, 15, 20);
+        doc.save("your-bookmarks.pdf");
+    }
 
 
     const triggerBookmarkFetch = useCallback(() => {
@@ -172,7 +187,15 @@ function Home() {
 
                     {/* Show Bookmarks Section */}
                     <div className="bg-gradient-to-tl from-gray-900 via-gray-600 to-gray-600 rounded-xl shadow-sm p-8">
-                        <h2 className="text-2xl font-bold text-white mb-6">Your Bookmarks</h2>
+
+                        <div className='flex justify-between items-center'>
+                            <div className="text-2xl font-bold text-white mb-6">Your Bookmarks</div>
+                            <button
+                                type="submit"
+                                className="text-black font-semibold py-2 px-6 rounded-lg duration-200 bg-white bg-opacity-80 hover:bg-gradient-to-tl from-gray-900 via-gray-500 to-white transition-all hover:text-white hover:scale-110 active:scale-95 mb-4" onClick={handleExtract}
+                            >Extract</button>
+                        </div>
+
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {bookmarks.map((bookmark) => (
                                 <BookmarkCard

@@ -6,8 +6,6 @@ dotenv.config();
 
 const authorizeMiddleware = async (req, res, next) => {
 
-    console.log('Authorization middleware hit.');
-    console.log('Request cookies:', req.cookies);
     try {
 
         // take token, verify token, if success then return the request.
@@ -42,14 +40,11 @@ const authorizeMiddleware = async (req, res, next) => {
         }
 
         req.user = user;
-        console.log('Token verified. req.user:', req.user);
 
         next();
 
 
     } catch (error) {
-        //
-        console.error('Token verification failed:', err);
         next(error);
     }
 }
