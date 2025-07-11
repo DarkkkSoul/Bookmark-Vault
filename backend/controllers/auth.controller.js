@@ -33,13 +33,13 @@ export const signupController = async (req, res, next) => {
 
         const isProduction = process.env.NODE_ENV === 'production';
 
-        res.cookie('token', token, {
-            httpOnly: true,
-            secure: isProduction,
-            sameSite: isProduction ? 'None' : 'Lax',
-            maxAge: 86400000,
-            path: '/',
-        });
+        // res.cookie('token', token, {
+        //     httpOnly: true,
+        //     secure: isProduction,
+        //     sameSite: isProduction ? 'None' : 'Lax',
+        //     maxAge: 86400000,
+        //     path: '/',
+        // });
 
         await mongooseSession.commitTransaction();
         mongooseSession.endSession();
@@ -88,13 +88,21 @@ export const loginController = async (req, res, next) => {
         // 'secure: true' means the cookie will only be sent over HTTPS. Use 'false' for development with HTTP.
         // 'sameSite: "Lax"' helps mitigate CSRF attacks.
 
-        const isProduction = process.env.NODE_ENV === 'production';
+        // const isProduction = process.env.NODE_ENV === 'production';
+
+        // res.cookie('token', token, {
+        //     httpOnly: true,
+        //     secure: isProduction,
+        //     sameSite: isProduction ? 'None' : 'Lax',
+        //     maxAge: 86400000,
+        //     path: '/',
+        // });
 
         res.cookie('token', token, {
             httpOnly: true,
-            secure: isProduction,
-            sameSite: isProduction ? 'None' : 'Lax',
+            secure: process.env.NODE_ENV === 'production', // true in prod, false locally
             maxAge: 86400000,
+            sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
             path: '/',
         });
 
