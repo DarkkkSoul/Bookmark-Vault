@@ -14,12 +14,30 @@ dotenv.config();
 const port = process.env.PORT || 5500;
 
 // middlewares
-app.use(cors({
-    origin: process.env.FRONTEND_URL,
+// CORS configuration: allow production and local origins, include OPTIONS for preflight
+const allowedOrigins = [
+    process.env.FRONTEND_URL, // e.g. https://bookmark-vault.vercel.app
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+];
+
+const corsOptions = {
+    origin: function (origin, callback) {
+        // allow REST tools or same-origin like curl/postman where origin may be undefined
+        if (!origin || allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+        return callback(new Error(`Not allowed by CORS: ${origin}`));
+    },
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+    optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
+// Explicitly handle preflight requests
+app.options('*', cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
